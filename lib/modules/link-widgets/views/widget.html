@@ -1,0 +1,40 @@
+{#<script>console.log('link-widgets', {{ data.widget | dump | safe }})</script>#}
+
+{% if apos.helpers.isDraftMode(data) %}
+	<div class="h-8 apos-space-helper">
+		<span>Link</span>
+	</div>
+{% endif %}
+
+<a href="{{ data.widget._linkPage._url }}">
+
+	<div class="flex items-center space-x-2.5 {{ apos.helpers.justifyContent(data.widget.align) }}">
+
+		{% if data.widget.iconPosition === 'left' %}
+			<span>
+				{{ apos.area(data.widget, 'icon', { widgets: { 'icon': {} } }) }}
+			</span>
+		{% endif %}
+
+		<span class="
+			{% if (data.widget.enableCustomStyling !== 'all') %}
+				{{ apos.helpers.fontFamily(data.widget.fontFamily) }}
+				{{ apos.helpers.textColor(data.widget.textColor) }}
+				{{ apos.helpers.textSize(data.widget.textSize) }}
+				{{ apos.helpers.textWeight(data.widget.textWeight) }}
+				{{ apos.helpers.paddingTop(data.widget.paddingTop) }}
+			{% endif %}
+			{% if data.widget.enableCustomStyling !== 'disabled' %}
+				{{ data.widget.customStyling }}
+			{% endif %}">
+			{{ apos.area(data.widget, 'text', { widgets: apos.helpers.textWidget }) }}
+		</span>
+
+		{% if data.widget.iconPosition === 'right' and data.widget.icon.items.length > 0 %}
+			<span>
+				{{ apos.area(data.widget, 'icon', { widgets: { 'icon': {} } }) }}
+			</span>
+		{% endif %}
+
+	</div>
+</a>

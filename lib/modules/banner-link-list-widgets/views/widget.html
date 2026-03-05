@@ -1,0 +1,32 @@
+{# <script>console.log('banner-link-list-widgets', {{ data.widget | dump | safe }})</script> #}
+
+{% if data.widget.links %}
+
+    <ul class="flex flex-wrap items-center justify-center w-full md:justify-end">
+
+        {% for link in data.widget.links %}
+
+            <li class="pl-4 md:pl-12 font-medium text-white text-xs md:text-sm font-gotham flex items-center justify-start">
+
+                {% if link.is_external > 0 %}
+
+                    <a class="hover:underline" href="{{ link.external_url }}" target="_blank">{{ link.link_title }}</a>
+
+                    <svg class="ml-2" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.04965 1.46973L8.2837 2.24884L9.52573 3.51222H9.20834C5.924 3.51222 3.25001 6.23217 3.25001 9.57298V10.124H4.33334V9.57298C4.33334 6.82768 6.50944 4.61418 9.20834 4.61418H9.52573L8.2837 5.87755L9.04965 6.65667L11.5993 4.0632L9.04965 1.46973ZM1.08334 4.61418V5.16515V10.6749C1.08334 11.5813 1.81732 12.3279 2.70834 12.3279H10.2917C11.1827 12.3279 11.9167 11.5813 11.9167 10.6749V10.124V9.57298H10.8333V10.124V10.6749C10.8333 10.9863 10.5977 11.2259 10.2917 11.2259H2.70834C2.40229 11.2259 2.16668 10.9863 2.16668 10.6749V5.16515V4.61418H1.08334Z" fill="white"/>
+                    </svg>
+
+
+                {% else %}
+
+                    <a class="hover:underline" href="{{ link._linkPage.slug }}">{{ link._linkPage.title }}</a>
+
+                {% endif %}
+
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+{% endif %}

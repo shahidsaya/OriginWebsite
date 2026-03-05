@@ -1,0 +1,99 @@
+{#<script>console.log('columns-widgets', {{ data.widget | dump | safe }})</script>#}
+
+{% if data.widget.config === 3 %}
+
+	{% if apos.helpers.isDraftMode(data) %}
+		<div class="h-16 apos-space-helper">
+			<span>3 Columns</span>
+		</div>
+	{% endif %}
+
+	<ul class="grid grid-cols-1 lg:grid-cols-3
+		{% if data.widget.columnGap === 'sm' %} gap-x-0 gap-y-4 md:gap-x-3 lg:gap-x-6 lg:gap-y-0{% endif %}
+		{% if data.widget.columnGap === 'md' %} gap-x-0 gap-y-8 md:gap-x-5 lg:gap-x-10 lg:gap-y-0{% endif %}
+		{% if data.widget.columnGap === 'lg' %} gap-x-0 gap-y-8 md:gap-x-8 lg:gap-x-16 lg:gap-y-0{% endif %}">
+
+		<li class="col-span-1 w-full{% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area1', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+		<li class="col-span-1 w-full{% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area2', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+		<li class="col-span-1 w-full{% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area3', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+	</ul>
+
+{% elif data.widget.config === 2 %}
+
+	{% if apos.helpers.isDraftMode(data) %}
+		<div class="h-16 apos-space-helper">
+			<span>2 Columns (1/1)</span>
+		</div>
+	{% endif %}
+
+	<ul class="grid grid-cols-1 lg:grid-cols-2
+		{% if data.widget.columnGap === 'sm' %} gap-x-0 gap-y-4 md:gap-x-3 lg:gap-x-6 lg:gap-y-0{% endif %}
+		{% if data.widget.columnGap === 'md' %} gap-x-0 gap-y-8 md:gap-x-5 lg:gap-x-10 lg:gap-y-0{% endif %}
+		{% if data.widget.columnGap === 'lg' %} gap-x-0 gap-y-8 md:gap-x-8 lg:gap-x-16 lg:gap-y-0{% endif %}">
+
+		<li class="col-span-1 w-full{% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %} {% if data.widget.last %} order-last md:order-none{% endif %}">
+			{{ apos.area(data.widget, 'area1', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+		<li class="col-span-1 w-full{% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area2', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+	</ul>
+
+{% elif data.widget.config === 1 %}
+
+	{% if apos.helpers.isDraftMode(data) %}
+		<div class="h-16 apos-space-helper">
+			<span>2 Columns (0.33 / 0.66)</span>
+		</div>
+	{% endif %}
+
+	<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+		{% if data.widget.columnGap === 'sm' %} gap-x-0 gap-y-4 md:gap-x-3 lg:gap-x-6 lg:gap-y-0{% endif %}
+		{% if data.widget.columnGap === 'md' %} gap-x-0 gap-y-8 md:gap-x-5 lg:gap-x-10 lg:gap-y-0{% endif %}
+		{% if data.widget.columnGap === 'lg' %} gap-x-0 gap-y-8 md:gap-x-8 lg:gap-x-16 lg:gap-y-0{% endif %}">
+
+		<li class="col-span-1 w-full {% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area1', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+		<li class="col-span-1 lg:col-span-2 w-full {% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area2', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+	</ul>
+
+{% elif data.widget.config === 4 %}
+
+	{% if apos.helpers.isDraftMode(data) %}
+		<div class="h-16 apos-space-helper">
+			<span>2 Columns (0.25 / 0.75)</span>
+		</div>
+	{% endif %}
+
+	<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4
+		{% if data.widget.columnGap === 'sm' %} gap-x-0 gap-y-4 md:gap-x-3 lg:gap-x-6 lg:gap-y-0{% endif %}
+		{% if data.widget.columnGap === 'md' %} gap-x-0 gap-y-8 md:gap-x-5 lg:gap-x-10 lg:gap-y-0{% endif %}
+		{% if data.widget.columnGap === 'lg' %} gap-x-0 gap-y-8 md:gap-x-8 lg:gap-x-16 lg:gap-y-0{% endif %}">
+
+		<li class="w-full col-span-1 {% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area1', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+		<li class="w-full col-span-1 lg:col-span-3 {% if data.widget.verticalAlign !== 'top' %} m-auto{% endif %} {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area2', { widgets: apos.helpers.allWidgets }) }}
+		</li>
+
+	</ul>
+
+{% endif %}

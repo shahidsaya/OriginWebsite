@@ -1,0 +1,27 @@
+{# <script>console.log('button-list-widgets', {{ data.widget | dump | safe }})</script>#}
+
+ {% if apos.helpers.isDraftMode(data) %}
+	 <div class="h-16 apos-space-helper">
+		 <span>Button List</span>
+	 </div>
+ {% endif %}
+
+<div class="mx-auto w-full">
+
+	<div class="m-auto w-full text-center my-4 flex flex-wrap {{ data.widget.layout }}
+	{% if data.widget.layout == 'flex-row' %} justify-{{ data.widget.align }} items-center {% endif %}
+{% if data.widget.layout == 'flex-col' %} items-{{ data.widget.align }} {% endif %}">
+
+		{% for button in data.widget.buttons %}
+
+			<div class="{{ data.widget.columnGap }}">
+
+				{{ apos.area(button, 'button', { widgets: { 'button': {} } }) }}
+
+			</div>
+
+		{% endfor %}
+
+	</div>
+
+</div>

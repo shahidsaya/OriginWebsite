@@ -1,0 +1,53 @@
+{#{% if data.widget._edit %}
+	<script>console.log('template-grid-widgets', {{ data.widget | dump | safe }})</script>
+{% endif %}#}
+
+{% if data.widget.gridFlow === 'row' %}
+	{% set items = data.widget.gridColumns|int %}
+{% elseif data.widget.gridFlow === 'column' %}
+	{% set items = data.widget.gridRow|int %}
+{% endif %}
+
+{% if apos.helpers.isDraftMode(data) %}
+	<div class="h-16 apos-space-helper">
+		<span>Template Grid</span>
+	</div>
+{% endif %}
+
+{% if data.widget._edit or not data.widget.hideWidget %}
+
+	<div class="grid auto-cols-fr auto-rows-fr grid-flow-{{ data.widget.gridFlow }}{{ apos.helpers.utility.gapX(data.widget.gapX) }}{{ apos.helpers.utility.gapY(data.widget.gapY) }}{% if data.widget.gridFlow === 'row' %}{{ apos.helpers.utility.gridColumns(data.widget.gridColumns) }}{% elseif data.widget.gridFlow === 'column' %}{{ apos.helpers.utility.gridRows(data.widget.gridRows) }}{% endif %}">
+
+		{% for item in data.widget.items %}
+
+			<div class="flex flex-col divide-y divide-black overflow-hidden{{ apos.helpers.utility.gridRowsSpan(item.rowSpan) }}{{ apos.helpers.utility.gridColumnsSpan(item.columnSpan) }}{{ apos.helpers.utility.borderColor(item.borderColor) }}{{ apos.helpers.utility.borderWidth(item.borderWidth) }}{{ apos.helpers.utility.borderRadius(item.borderRadius) }}">
+
+				{% if item.header %}
+					<div class="flex flex-col{{ apos.helpers.utility.backgroundColor(item.headerBackgroundColor) }}{{ apos.helpers.utility.paddingX(item.paddingX) }}{{ apos.helpers.utility.paddingY(item.paddingY) }}">
+
+						{{ apos.area(item, 'headerArea', { widgets: apos.helpers.allWidgets }) }}
+
+					</div>
+				{% endif %}
+
+				<div class="flex-grow{{ apos.helpers.utility.backgroundColor(item.bodyBackgroundColor) }}{{ apos.helpers.utility.paddingX(item.paddingX) }}{{ apos.helpers.utility.paddingY(item.paddingY) }}">
+					{{ apos.area(item, 'mainArea', { widgets: apos.helpers.allWidgets }) }}
+				</div>
+
+				{% if item.footer %}
+
+					<div class="flex flex-col{{ apos.helpers.utility.backgroundColor(item.footerBackgroundColor) }}{{ apos.helpers.utility.paddingX(item.paddingX) }}{{ apos.helpers.utility.paddingY(item.paddingY) }}">
+
+						{{ apos.area(item, 'footerArea', { widgets: apos.helpers.allWidgets }) }}
+
+					</div>
+
+				{% endif %}
+
+			</div>
+
+		{% endfor %}
+
+	</div>
+
+{% endif %}

@@ -1,0 +1,220 @@
+{# <script>console.log('navbar', {{ data | dump | safe }})</script> #}
+
+{# Alpine.js config for this page is in layout.html #}
+
+{% if data.edit %}
+    {# <script>console.log('header', {{ data | dump | safe }})</script> #}
+    {# <script>console.log('header - data.url', {{ data.url | dump | safe }})</script>
+	<script>console.log('header - data.home', {{ data.home | dump | safe }})</script> #}
+{% endif %}
+
+<script>
+
+	function generateMenu() {
+		return JSON.stringify([
+            {% for parent in data.home._children %}{
+
+				// Set depth
+            {% set depth = 0 %}
+
+            {% if parent._children|length !== 0 %}
+            {% set depth = 1 %}
+            {% for child in parent._children %}
+            {% if child._children|length !== 0 %}
+            {% set depth = 2 %}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+				id: '{{ parent.titleSortified | replace(" ", "-") }}',
+				url: "{% if parent.redirectLinkType === 'externalLink' and parent.externalRedirect %}{{ parent.externalRedirect }}{% else %}{{ parent._url }}{% endif %}",
+				title: "{{ parent.title | safe }}",
+				linkTarget: '{% if parent.redirectLinkType === 'externalLink' and parent.externalRedirect %}{{ parent.externalRedirectTarget }}{% else %}_self{% endif %}',
+				linkLocation: '{% if parent.mobileLinkLocation %}{{ parent.mobileLinkLocation }}{% else %}slideover{% endif %}',
+				active: {% if parent.path === data.url %}true{% else %}false{% endif %},
+				depth: {{ depth }},
+				hideInNav: {% if 'orphan' in parent %}{{ parent.orphan }}{% else %}true{% endif %},
+				gt_translate_keys: [{key: "title", format: "text"}, {key: "url", format: "url"}],
+				children: [
+
+            {% for child in parent._children %}
+					{
+						id: '{{ child.titleSortified | replace(" ", "-") }}',
+						url: "{{ child._url }}",
+						title: "{{ child.title | safe }}",
+						active: {% if child.path === data.url %}true{% else %}false{% endif %},
+						hideInNav: {% if 'orphan' in child %}{{ child.orphan }}{% else %}true{% endif %},
+						gt_translate_keys: [{key: "title", format: "text"}, {key: "url", format: "url"}]
+              {% if child._children|length !== 0 %}
+						children: [
+                {% for child2 in child._children %}
+							{
+								id: '{{ child2.titleSortified | replace(" ", "-") }}',
+								url: "{{ child2._url }}",
+								title: "{{ child2.title | safe }}",
+								active: {% if child2.path === data.url %}true{% else %}false{% endif %},
+								hideInNav: {% if 'orphan' in child2 %}{{ child2.orphan }}{% else %}true{% endif %},
+								gt_translate_keys: [{key: "title", format: "text"}, {key: "url", format: "url"}],
+                  {% if child2._children|length !== 0 %}
+								children: [
+                    {% for child3 in child2._children %}
+									{
+										id: '{{ child3.titleSortified | replace(" ", "-") }}',
+										url: "{{ child3._url }}",
+										title: "{{ child3.title | safe }}",
+										active: {% if child3.path === data.url %}true{% else %}false{% endif %},
+										hideInNav: {% if 'orphan' in child3 %}{{ child3.orphan }}{% else %}true{% endif %},
+										gt_translate_keys: [{key: "title", format: "text"}, {key: "url", format: "url"}]
+									},
+                    {% endfor %}
+								]
+                  {% endif %}
+
+							},
+                {% endfor %}
+						]
+              {% endif %}
+
+					},
+            {% endfor %}
+
+				]
+			},
+        {% endfor %}
+		]);
+	}
+
+	function header() {
+		return {
+			menuOpen: false,
+			mobileMenuOpen: false,
+			selectedParent: null,
+			selectedItems: null,
+			searchBarOpen: false,
+			lang: document.getElementsByTagName('html')[0].getAttribute('lang'),
+			menu: JSON.parse(generateMenu()),
+			setSelectedParent(id) {
+				this.menuOpen = !this.menuOpen;
+				this.selectedItems = this.menu.filter(item => item.id === id);
+				this.selectedParent = this.selectedParent === id ? null : id;
+			}
+
+		}
+	}
+
+	function createTranslationTable() {
+		const content = JSON.parse(generateMenu());
+
+		// create a new div element
+		const newDiv = document.createElement("div");
+
+		// and give it some content
+		content.forEach((parent) => {
+			const newContent = document.createElement('span');
+			newContent.innerText = parent.title;
+			newDiv.appendChild(newContent);
+
+			if(parent.children) {
+				parent.children.forEach(child => {
+					const newContent = document.createElement('span');
+					newContent.innerText = child.title;
+					newDiv.appendChild(newContent);
+
+					if(child.children) {
+						child.children.forEach(grandchild => {
+							const newContent = document.createElement('span');
+							newContent.innerText = grandchild.title;
+							newDiv.appendChild(newContent);
+						})
+					}
+				})
+			}
+
+		})
+
+		newDiv.hidden = true;
+
+		document.body.appendChild(newDiv);
+
+	}
+
+</script>
+
+<header id="header" x-data="header()" class="sticky top-0 z-50">
+
+    {% include 'nav/topBanner.html' %}
+
+    <div class="relative w-full bg-white z-10 px-6">
+
+        <div id="navbar" class="flex items-center lg:items-start justify-between mx-auto max-w-screen-xl">
+
+            <a class="flex items-center justify-start w-full min-w-[120px] max-w-[12rem] lg:max-w-[17rem] py-4 lg:py-8"
+               href="/">
+
+                <img x-show="lang !== 'fr'" class="w-full" src="/modules/my-apostrophe-assets/images/logo.png"
+                     alt="Origin Logo">
+                <img x-show="lang == 'fr'" class="w-full" src="/modules/my-apostrophe-assets/images/logo-fr.png"
+                     alt="Origin Logo">
+
+            </a>
+
+            <div class="flex flex-col items-end justify-end">
+
+                <div class="hidden lg:flex mb-3 pt-2">
+                    {% include 'nav/langSwitcher.html' %}
+
+                    <button x-on:click="searchBarOpen = !searchBarOpen; setSelectedParent(null)" class="ml-3">
+                        <span class="sr-only">Search</span>
+                        {% include 'svgs/searchIcon.html' %}
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-end ml-5">
+
+                    {% include 'nav/desktopNav.html' %}
+
+                    <div class="items-center flex md:ml-8">
+                        <a href="https://ordering.originspermbank.com/user/patient_order.php" target="_blank"
+                           class="text-sm text-blue-200 md:text-base bg-gold-20 hover:bg-gold-10 transition-all rounded-full px-6 py-2 w-full whitespace-nowrap text-center font-medium font-gotham md:w-[194px]">Order
+                            Online</a>
+                    </div>
+
+                    {# Mobile Hamburger #}
+                    <button x-on:click="mobileMenuOpen = true; setSelectedParent(null)"
+                            class="text-blue block lg:hidden ml-4">
+                        <span class="sr-only">Open Menu</span>
+                        {% include 'svgs/hamburgerIcon.html' %}
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {# Desktop Child Link Drawer - show if dropdown active #}
+    {% include 'nav/desktopSubNav.html' %}
+
+    {% include 'nav/desktopSearch.html' %}
+
+    {# Mobile menu #}
+    <div x-show="mobileMenuOpen"
+         class="block absolute top-0 left-0 w-full h-screen overflow-y-scroll p-4 bg-gold-10 lg:hidden z-20"
+         id="mobileMenu"
+         x-transition:enter="transition ease-in-out duration-500 transform"
+         x-transition:enter-start="translate-x-full opacity-0"
+         x-transition:enter-end="translate-x-0 opacity-100"
+         x-transition:leave="transition ease-in-out duration-500"
+         x-transition:leave-start="translate-x-0 opacity-100"
+         x-transition:leave-end="translate-x-full opacity-0">
+
+        {# Output child level links #}
+        {% include 'nav/mobileNav.html' %}
+
+        {% include 'nav/mobileSubNav.html' %}
+
+    </div>
+
+</header>

@@ -1,0 +1,12 @@
+
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Embed</span>
+    </div>
+{% endif %}
+
+<div class="px-4 md:px-2 lg:px-0">
+    <div class="overflow-hidden pt-[56.25%] relative">
+        <iframe src="{{ data.widget.url }}" class="b-0 w-full h-full absolute left-0 top-0" allowfullscreen></iframe>
+    </div>
+</div>

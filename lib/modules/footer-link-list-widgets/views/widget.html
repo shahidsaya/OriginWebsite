@@ -1,0 +1,44 @@
+{# <script>console.log('footer-link-list-widgets', {{ data.widget | dump | safe }})</script> #}
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Footer Link List</span>
+    </div>
+{% endif %}
+
+{% if data.widget.title %}
+<h2 class="text-2xl md:text-3xl text-white font-cora font-normal mb-4">{{ data.widget.title }}</h2>
+{% endif %}
+
+<ul class="flex flex-col justify-start items-start w-full mb-10">
+
+    {% for link in data.widget.links %}
+
+        <li class="flex items-center justify-between mb-6 last:mb-4 md:mb-10 py-2 pr-4 uppercase font-medium text-white text-xl border-b border-pink w-full font-gotham">
+
+            {% if link.url_override.length > 0 %}
+
+                <a href="{{ link.url_override }}">
+                    {% if link.title_override.length > 0 %}
+                        {{ link.title_override }}
+                    {% else %}
+                        {{ link._linkPage.title }}
+                    {% endif %}
+                </a>
+
+            {% else %}
+
+                <a href="{{ link._linkPage.slug }}">
+                    {% if link.title_override.length > 0 %}
+                        {{ link.title_override }}
+                    {% else %}
+                        {{ link._linkPage.title }}
+                    {% endif %}
+                </a>
+
+            {% endif %}
+
+        </li>
+
+    {% endfor %}
+
+</ul>

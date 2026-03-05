@@ -1,0 +1,28 @@
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Accordion</span>
+    </div>
+{% endif %}
+
+<div class="w-full" x-data="{open: {{ data.widget.startOpen }} }">
+
+    <div class="border-t border-blue">
+        <button class="py-3 pr-2 text-lg text-left md:text-xl w-full font-medium text-blue-100 flex items-center justify-between" @click="open = !open">
+
+            <span class="pr-4">{{ data.widget.accordionHeader }}</span>
+
+            <svg class="shrink-0" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19">
+                <rect y="8.2" width="19" height="2.5" fill="#59718C"/>
+                <rect x-bind:style="open === true ? 'display: none;' : 'display: block;'" x="8.2" width="2.5" height="19" fill="#59718C"/>
+            </svg>
+
+        </button>
+    </div>
+
+    <div class="relative max-h-0 transition-all duration-300 overflow-hidden" x-ref='accordionContent' x-bind:style="open === true ? 'max-height: ' + $refs.accordionContent.scrollHeight + 'px' : ''">
+        <div class="pl-6 md:pl-14 py-8 ">
+            {{ apos.area(data.widget, 'accordionContent', { widgets: apos.helpers.allWidgets }) }}
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,96 @@
+<div x-show="selectedParent"
+     class="fixed w-full h-full overflow-y-scroll top-0 p-4 left-0 bg-gold-10 z-200"
+     x-transition:enter="transition ease-in-out duration-500 transform"
+     x-transition:enter-start="translate-x-full opacity-0"
+     x-transition:enter-end="translate-x-0 opacity-100"
+     x-transition:leave="transition ease-in-out duration-500"
+     x-transition:leave-start="translate-x-0 opacity-100"
+     x-transition:leave-end="translate-x-full opacity-0"
+     id="mobileDrawer">
+
+    <template x-for="item in selectedItems" :key="item.id">
+
+        <template x-if="!item.hideInNav">
+
+            <div class="w-full">
+
+                <div class="flex items-center justify-between">
+
+                    <button class="flex items-center justify-start" x-on:click="setSelectedParent(null)">
+                        <svg width="7" height="10" viewBox="0 0 7 10" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 1L2 5L6 9" stroke="#EEAC5C" stroke-width="1.5"/>
+                        </svg>
+                        <span class="ml-4">Back</span>
+                    </button>
+
+                    <p x-text="item.title"></p>
+
+                    <button x-on:click="mobileMenuOpen = false; setSelectedParent(null)">
+                        <span class="sr-only">Close</span>
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 21L21 1" stroke="#3C1D58" stroke-width="1.57349"/>
+                            <path d="M21 21L1 1" stroke="#3C1D58" stroke-width="1.57349"/>
+                        </svg>
+                    </button>
+
+                </div>
+
+                <template x-if="item.children">
+
+                    <ul class="flex flex-col items-stretch justify-center mt-16">
+
+                        <template x-for="child in item.children" :key="child.id">
+
+                            <template x-if="!child.hideInNav">
+
+                                <li>
+
+                                    <template x-if="child.children">
+                                        <span class="block py-4 text-blue text-base font-medium border-b border-blue"
+                                              x-text="child.title"></span>
+                                    </template>
+
+                                    <template x-if="!child.children">
+                                        <a x-bind:href="child.url" x-text="child.title"
+                                           class="block py-4 text-blue hover:text-gold text-base font-normal border-b border-blue"></a>
+                                    </template>
+
+                                    <template x-if="child.children">
+
+                                        <ul class="pl-12 my-3">
+
+                                            <template x-for="child2 in child.children" :key="child2.id">
+
+                                                <template x-if="!child2.hideInNav">
+
+                                                    <li><a x-bind:href="child2.url" x-text="child2.title"
+                                                           class="text-blue hover:text-gold text-base font-normal"></a>
+                                                    </li>
+
+                                                </template>
+
+                                            </template>
+
+                                        </ul>
+
+                                    </template>
+
+                                </li>
+
+                            </template>
+
+                        </template>
+
+                    </ul>
+
+                </template>
+
+            </div>
+
+        </template>
+
+    </template>
+
+</div>

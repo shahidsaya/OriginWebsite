@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+	{{ apos.area(data.page, 'mainTop', { widgets: apos.helpers.allWidgets }) }}
+
+	<div class="max md:max-w-screen-xl w-padded">
+
+		<div class="my-10 md:my-20">
+
+			{% if data.pieces.length %}
+
+				<ul class="grid grid-cols-1 gap-6 w-full md:grid-cols-2 xl:grid-cols-3">
+
+					{% for piece in data.pieces %}
+
+						<li class="flex flex-col">
+
+							<div class="relative w-full h-[500px] z-0 -mb-[200px] overflow-hidden bg-gold-10">
+
+								{% if piece._image.attachment %}
+									<img alt="blog-post-image" class="object-cover object-center absolute w-full h-full"
+										 src="{{ apos.attachments.url(piece._image.attachment) }}">
+								{% endif %}
+
+							</div>
+
+							<div class="bg-gold-10 p-8 md:p-10 flex-grow rounded-tr-extra-large z-10">
+
+								<h2 class="text-2xl font-medium uppercase text-blue mb-5 pr-[25%]">{{ piece.title }}</h2>
+								<p class="mb-10 pr-6 text-black font-light text-base">{{ piece.shortDescription }}</p>
+
+								<a href="{{ piece._url }}" class="text-blue font-medium text-xl flex items-center justify-start hover:underline">
+									<span>Learn More</span>
+									<svg class="ml-4" width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M1 15L8 8L0.999999 1" stroke="#EEAC5C" stroke-width="2.5"/>
+									</svg>
+								</a>
+
+							</div>
+
+						</li>
+
+					{% endfor %}
+
+				</ul>
+
+			{% endif %}
+
+		</div>
+
+	</div>
+
+	{{ apos.area(data.page, 'mainBottom', { widgets: apos.helpers.allWidgets }) }}
+
+{% endblock %}

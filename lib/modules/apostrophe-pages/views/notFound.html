@@ -1,0 +1,33 @@
+{#
+Use this template to build out your 404 error pages. Like page templates,
+it inherits a global layout.
+#}
+
+{% extends "layout.html" %}
+
+{% block title %}404 - Page not found{% endblock %}
+
+{% block main %}
+
+	{#<script>console.log('404', {{ data | dump | safe }})</script>#}
+
+	<div class="py-16 md:py-24 text-center w-padded">
+		{{ apos.area(data.global, 'notFound_title', { widgets: { 'title': {} } }) }}
+		<div class="mt-8 text-2xl">
+			{{ apos.area(data.global, 'notFound_subtitle', { widgets: apos.helpers.textWidget }) }}
+		</div>
+		<div class="mt-6 text-xl">
+			{{ apos.area(data.global, 'notFound_errorCode', { widgets: apos.helpers.textWidget }) }}
+		</div>
+		<div class="mt-8 text-xl">
+			{{ apos.area(data.global, 'notFound_linkText', { widgets: apos.helpers.textWidget }) }}
+			{{ apos.area(data.global, 'notFound_links', {
+				type: 'array',
+				widgets: {
+					'link': {},
+					'horizontal-gap': {}
+				}
+			}) }}
+		</div>
+	</div>
+{% endblock %}

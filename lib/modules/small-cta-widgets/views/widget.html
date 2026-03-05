@@ -1,0 +1,34 @@
+{# <script>console.log('small-cta-widgets', {{ data.widget | dump | safe }})</script> #}
+
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Small CTA</span>
+    </div>
+{% endif %}
+<a href="{{ data.widget.url }}" class="group">
+  <div class="flex flex-row">
+
+    <div class="relative w-[138px] h-[132px]">
+
+        <svg class="absolute z-10 bottom-0 w-full" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72.9 410.9" preserveAspectRatio="xMaxYMin meet"><path d="M35.6,217.3c32.5,89.1,37.6,151.5,32.9,193.6h4.4V0H2.6C-4,49.4.3,120.4,35.6,217.3Z" style="fill:#f2f2f2;" fill-rule="evenodd"/></svg>
+
+        <img alt="blog-post-image" class="object-cover object-center absolute w-full h-full"
+         src="{{ apos.attachments.url(data.widget._backgroundImage.attachment, { size: 'max' }) }}">
+
+    </div>
+
+    <div class="bg-extra-light-grey p-6 flex items-center relative">
+        <span class="text-blue font-bold text-xl group-hover:underline max-w-[226px]"">
+          {{ apos.area(data.widget, 'text', { widgets: apos.helpers.textWidget }) }}
+        </span>
+
+        <div class="text-blue font-bold text-xl flex items-center justify-end absolute bottom-0 right-0 m-4">
+            <svg class="ml-2" width="25" height="16" viewBox="0 0 25 16" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.75 15L22.75 8L15.75 1" stroke="#9B3D97" stroke-width="2.5"/>
+                <path d="M22.75 8L0 8" stroke="#9B3D97" stroke-width="2.5"/>
+            </svg>
+        </div>
+    </div>
+  </div>
+</a>

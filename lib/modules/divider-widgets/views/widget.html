@@ -1,0 +1,10 @@
+{#<script>console.log('divider-widgets', {{ data.widget | dump | safe }})</script>#}
+
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Divider</span>
+    </div>
+{% endif %}
+
+<div class="mx-auto{% if (data.widget.enableCustomStyling !== 'all') %} {{ apos.helpers.width(data.widget.width) }} {{ data.widget.height }} {{ apos.helpers.backgroundColor(data.widget.backgroundColor) }}{% endif %}{% if data.widget.enableCustomStyling !== 'disabled' %} {{ data.widget.customStyling }}{% endif %}">
+</div>

@@ -1,0 +1,19 @@
+{#<script>console.log('icon-widgets', {{ data.widget | dump | safe }})</script>#}
+
+<div class="{% if (data.widget.enableCustomStyling !== 'all') %}mx-auto overflow-hidden
+		{{ data.widget.width }}
+		{{ apos.helpers.padding(data.widget.padding) }}
+		{{ apos.helpers.textColor(data.widget.lineColor) }}
+		{{ apos.helpers.backgroundColor(data.widget.backgroundColor) }}
+		{{ apos.helpers.borderColor(data.widget.borderColor) }}
+		{{ apos.helpers.borderWidth(data.widget.borderWidth) }}
+		{{ apos.helpers.borderRadius(data.widget.borderRadius) }}
+	{% endif %}
+	{% if data.widget.enableCustomStyling !== 'disabled' %}
+		{{ data.widget.customStyling }}
+	{% endif %}">
+
+	<img class="w-full h-full" alt="icon"
+		 src="{{ apos.attachments.url(data.widget._iconImage.attachment, { size: original }) }}">
+
+</div>

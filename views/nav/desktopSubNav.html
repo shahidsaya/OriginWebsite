@@ -1,0 +1,73 @@
+<nav x-show="selectedParent"
+     class="hidden lg:block absolute w-full"
+     x-cloak
+     id="desktopDropdown"
+     x-transition:enter="transition ease-in-out duration-500 transform"
+     x-transition:enter-start="-translate-y-full opacity-0"
+     x-transition:enter-end="translate-y-0 opacity-100"
+     x-transition:leave="transition ease-in-out duration-500 transform"
+     x-transition:leave-start="translate-y-0 opacity-100"
+     x-transition:leave-end="-translate-y-full opacity-0"
+>
+
+    {# Output child level links #}
+    <div class="p-8 w-full bg-gold-10">
+
+        <template x-for="item in selectedItems" :key="item.id">
+
+            <template x-if="!item.hideInNav">
+
+                <div class="mx-auto flex-row max-w-screen-xl">
+
+                    <ul class="flex flex-wrap items-stretch justify-center">
+
+                        <template x-for="child in item.children" :key="child.id">
+
+                            <template x-if="!child.hideInNav">
+
+                                <li class=" h-full flex-shrink text-center border-r mt-2 mb-2 px-6 border-gold last:border-none">
+
+                                    <template x-if="child.children">
+                                    <span class="block pb-1 text-blue text-base font-bold"
+                                          x-text="child.title"
+                                    ></span>
+                                    </template>
+
+                                    <template x-if="!child.children">
+                                        <a x-bind:href="child.url" x-text="child.title"
+                                           class="block pb-1 text-blue hover:text-gold text-base font-normal"></a>
+                                    </template>
+
+                                    <ul>
+
+                                        <template x-for="child2 in child.children" :key="child2.id">
+
+                                            <template x-if="!child2.hideInNav">
+
+                                                <li><a x-bind:href="child2.url" x-text="child2.title"
+                                                       class="text-blue hover:text-gold text-base font-normal"></a>
+                                                </li>
+
+                                            </template>
+
+                                        </template>
+
+                                    </ul>
+
+                                </li>
+
+                            </template>
+
+                        </template>
+
+                    </ul>
+
+                </div>
+
+            </template>
+
+        </template>
+
+    </div>
+
+</nav>

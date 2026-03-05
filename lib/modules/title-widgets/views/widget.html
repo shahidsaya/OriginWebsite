@@ -1,0 +1,10 @@
+<h2 class="{% if data.widget.size === 'small' %}text-xl md:text-2xl{% elseif data.widget.size === 'large' %}text-3xl md:text-4xl{% endif %} {{ data.widget.verticalAlign }} {{ apos.helpers.textColor(data.widget.titleColor) }} {{ apos.helpers.fontFamily(data.widget.fontFamily) }} {{ apos.helpers.textWeight(data.widget.textWeight) }} {{ apos.helpers.textAlign(data.widget.textAlign) }} {{ apos.helpers.paddingTop(data.widget.paddingTop) }} {{ apos.helpers.paddingBottom(data.widget.paddingBottom) }} {% if data.widget.icon.items.length > 0 %} flex justify-center {% endif %}">
+
+	{% if data.widget.icon.items.length > 0 %}
+		<span class="mr-4 max-w-2xl h-auto">
+        	{{ apos.area(data.widget, 'icon', { widgets: { 'icon': {} } }) }}
+    	</span>
+	{% endif %}
+
+	<span>{{ apos.area(data.widget, 'title', { widgets: apos.helpers.textWidget }) }}</span>
+</h2>

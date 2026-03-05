@@ -1,0 +1,15 @@
+{#<script>console.log('styled-paragraph-widgets', {{ data.widget | dump | safe }})</script>#}
+
+{% if apos.helpers.isDraftMode(data) %}
+	<div class="h-16 apos-space-helper">
+		<span>Styled Paragraph</span>
+	</div>
+{% endif %}
+
+<div class="flex flex-col text-left">
+  <span class="text-3xl lg:text-4xl text-blue font-source-serif flex items-end border-b-2 border-gold pb-3.5 leading-[1.12] font-cora">{{ apos.area(data.widget, 'area1', { widgets: apos.helpers.textWidget }) }}
+  </span>
+  <span class="text-base md:text-xl lg:text-2xl font-source-serif text-black flex items-end font-gotham-book mt-3.5 mb-12">
+    {{ apos.area(data.widget, 'area2', { widgets: apos.helpers.textWidget }) }}
+  </span>
+</div>

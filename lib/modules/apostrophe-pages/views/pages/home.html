@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    {#    <script>console.log('home', {{ data | dump | safe }})</script> #}
+
+    <div class="flex flex-col max-w-9xl">
+
+        <div class="relative w-full overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-stretch justify-between">
+
+            <div class="relative flex items-center justify-end w-full after:-z-10 after:absolute after:w-full lg:after:w-1/2 after:right-0 after:h-full after:rounded-tl-extra-large after:content-[''] after:top-0 after:bg-gold-10 pt-7 md:pt-12 lg:py-8 pr-8">
+                {{ apos.singleton(data.page, 'background', 'apostrophe-images',  {
+                    controls: {
+                        movable: false,
+                        position: 'top-left'
+                    },
+                    template: 'capsule-shape'
+                }) }}
+            </div>
+
+            <div class="relative bg-gold-10 text-blue py-7 md:py-12 lg:py-24 px-6">
+                <div class="max-w-[700px]">
+                    <div class="text-4xl md:text-5xl lg:text-6xl leading-[1.1] font-cora font-normal">{{ apos.area(data.page, 'titleHeader', { widgets: apos.helpers.textWidget }) }}</div>
+
+                    <div class="my-5 text-2xl lg:text-2xl text-shadow">{{ apos.area(data.page, 'subtitleHeader', { widgets: apos.helpers.textWidget }) }}
+                    </div>
+
+                    <div class="mt-8 md:mt-10 space-y-4 text-lg lg:text-xl font-medium font-gotham w-[323px] mx-auto md:mx-0">
+                        {{ apos.area(data.page, 'button', { widgets: { 'button': {} } }) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        {{ apos.area(data.page, 'main', { widgets: apos.helpers.allWidgets }) }}
+
+    </div>
+
+{% endblock %}

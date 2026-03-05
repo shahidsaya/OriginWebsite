@@ -1,0 +1,82 @@
+{#<script>console.log('slider-widgets', {{ data.widget | dump | safe }})</script>#}
+
+{% if apos.helpers.isDraftMode(data) %}
+	<div class="h-16 apos-space-helper">
+		<span>Slider</span>
+	</div>
+{% endif %}
+
+{% if data.widget._edit or not data.widget.hideWidget %}
+
+	<script>
+		function slider() {
+			return {
+				swiper: null
+			}
+		}
+	</script>
+
+	<div x-data="slider()" x-init="swiper = new Swiper($refs.container, {
+  on: {
+      init: function () {
+        {% if data.widget.sliderItems|length <= 1 %}
+                this.allowTouchMove = false
+                this.showArrows = false
+                this.showPagination = false
+               {% else %}
+                this.showArrows = {{ data.widget.showArrows }}
+                this.showPagination = true
+      {% endif %}
+    }
+    },
+	loop: true,
+	slidesPerView: 1,
+	spaceBetween: 0,
+	observer: true,
+	observeParents: true,
+	pagination: {
+		el: '.swiper-pagination',
+		clickable: true,
+		type: 'bullets',
+		bulletClass: 'rounded-full inline-block important:w-14 important:h-1 bg-purple-10',
+		bulletActiveClass: '{{ data.widget.paginationActiveColor }}'
+	  }
+  })" x-cloak>
+
+		<div class="w-full {{ apos.helpers.backgroundColor(data.widget.backgroundColor) }}">
+			<div>
+				<div class="swiper-container" x-ref="container">
+
+					<div class="hidden absolute left-0 top-1/2 z-20 transform translate-x-full -translate-y-1/2 lg:block" x-show="swiper.showArrows">
+						<button class="rounded-full bg-gold p-2.5 focus:outline-none" x-on:click="swiper.slidePrev()" x-bind:class="{ 'opacity-50 select-none cursor-default' : swiper.activeIndex === 1}" x-bind:disabled="swiper.activeIndex === 1">
+							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M14.2502 9L3.75018 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M9 14.25L3.75 8.99997L9 3.74997" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+					</div>
+
+					<div class="items-center swiper-wrapper">
+						{% for slide in data.widget.sliderItems %}
+							<div class="swiper-slide">
+								{{ apos.area(slide, 'mainArea', { widgets: apos.helpers.allWidgets }) }}
+							</div>
+						{% endfor %}
+					</div>
+
+					<div class="absolute z-30 mt-6 space-x-4 transform -translate-y-1/2 swiper-pagination" x-show="swiper.showPagination"></div>
+
+					<div class="hidden absolute right-0 top-1/2 z-20 transform -translate-x-full -translate-y-1/2 lg:block" x-show="swiper.showArrows">
+						<button class="rounded-full bg-gold p-2.5 focus:outline-none" x-on:click="swiper.slideNext();"> {# :disabled="activeIndex >= testimonialCount-1" #}
+							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M3.74985 9H14.2498" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M9 3.75003L14.25 9.00003L9 14.25" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endif %}

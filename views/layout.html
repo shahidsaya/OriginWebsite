@@ -1,0 +1,99 @@
+{% extends data.outerLayout %}
+
+{% if data.piece %}
+	{% if data.piece.seoTitle %}
+		{% set title = data.piece.seoTitle %}
+	{% else %}
+		{% set title = data.piece.title %}
+	{% endif %}
+{% else %}
+	{% if data.page.seoTitle %}
+		{% set title = data.page.seoTitle %}
+	{% else %}
+		{% set title = data.page.title %}
+	{% endif %}
+{% endif %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block startHead %}
+	{#
+	This block outputs its contents in the HTML document's <head>.
+	It is a good place to put extra <script> <link> and <meta> tags.
+	#}
+
+	<script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
+
+	{% include "apostrophe-seo:view.html" %}
+
+	{% include "apostrophe-open-graph:view.html" %}
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<link rel="stylesheet" href="https://use.typekit.net/ybq6upf.css">
+
+{% endblock %}
+
+{% block extraHead %}
+
+{#	<script>console.log('footer-link-list-widgets', {{ data.piece | dump | safe }})</script>#}
+
+	{# Favicon #}
+	<link rel="icon"
+	      href="/favicon.svg"
+	      sizes="any"
+	      type="image/svg+xml">
+
+	<input type="hidden"
+	       id="pageview_event_id"
+	       name="pageview_event_id"
+	       value="{{ apos.settings.getOption('pageViewId') }}"></input>
+
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+					new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+															  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-KQSPFSF');</script>
+	<!-- End Google Tag Manager -->
+
+{% endblock %}
+
+{% block beforeMain %}
+  {#
+  We recommend you use the beforeMain block for global page components
+  like headers or navigation.
+  #}
+
+<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQSPFSF"
+					  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="flex flex-col justify-between min-h-screen">
+
+	{% include 'navbar.html' %}
+
+	<div class="flex-grow text-black">
+		{% endblock %}
+
+		{% block main %}
+			{#
+			Usually, your page templates in the apostrophe-pages module will override
+			this block. It is safe to assume this is where your page-specific content
+			should go.
+			#}
+		{% endblock %}
+
+		{% block afterMain %}
+	</div>
+
+	{% include 'footer.html' %}
+
+</div>
+
+
+{% endblock %}

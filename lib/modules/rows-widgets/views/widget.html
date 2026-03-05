@@ -1,0 +1,78 @@
+{#<script>console.log('rows-widgets', {{ data.widget | dump | safe }})</script>#}
+
+{% if data.widget.config === 2 %}
+
+	{% if apos.helpers.isDraftMode(data) %}
+		<div class="h-16 apos-space-helper">
+			<span>Two Rows</span>
+		</div>
+	{% endif %}
+
+	<div class="grid grid-flow-row grid-rows-1 md:grid-rows-2
+		{{ apos.helpers.gap(data.widget.gap) }}">
+
+		<div>
+			{{ apos.area(data.widget, 'area1', { widgets: apos.helpers.allWidgets }) }}
+		</div>
+
+		<div>
+			{{ apos.area(data.widget, 'area2', { widgets: apos.helpers.allWidgets }) }}
+		</div>
+
+	</div>
+
+{% elif data.widget.config === 3 %}
+
+	{% if apos.helpers.isDraftMode(data) %}
+		<div class="h-16 apos-space-helper">
+			<span>Three Rows</span>
+		</div>
+	{% endif %}
+
+  <div class="grid grid-flow-row grid-rows-1 md:grid-rows-3
+		{{ apos.helpers.gap(data.widget.gap) }}">
+
+		<div>
+			{{ apos.area(data.widget, 'area1', { widgets: apos.helpers.allWidgets }) }}
+		</div>
+
+		<div>
+			{{ apos.area(data.widget, 'area2', { widgets: apos.helpers.allWidgets }) }}
+		</div>
+
+    <div>
+      {{ apos.area(data.widget, 'area3', { widgets: apos.helpers.allWidgets }) }}
+    </div>
+
+	</div>
+
+{% elif data.widget.config === 4 %}
+
+	{% if apos.helpers.isDraftMode(data) %}
+		<div class="h-16 apos-space-helper">
+			<span>Four Rows</span>
+		</div>
+	{% endif %}
+
+  <div class="grid grid-flow-row grid-rows-1 md:grid-rows-4
+    {{ apos.helpers.gap(data.widget.gap) }}">
+
+    <div>
+      {{ apos.area(data.widget, 'area1', { widgets: apos.helpers.allWidgets }) }}
+    </div>
+
+    <div>
+      {{ apos.area(data.widget, 'area2', { widgets: apos.helpers.allWidgets }) }}
+    </div>
+
+    <div>
+      {{ apos.area(data.widget, 'area3', { widgets: apos.helpers.allWidgets }) }}
+    </div>
+
+    <div>
+      {{ apos.area(data.widget, 'area4', { widgets: apos.helpers.allWidgets }) }}
+    </div>
+
+  </div>
+
+{% endif %}

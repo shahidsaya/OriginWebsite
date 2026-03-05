@@ -1,0 +1,79 @@
+{# <script>console.log('cta-box-widgets', {{ data.widget | dump | safe }})</script> #}
+
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>CTA</span>
+    </div>
+{% endif %}
+
+
+<div class="flex flex-col h-full">
+
+    <div class="relative w-full h-[500px] z-0 -mb-[200px] overflow-hidden bg-gold-10">
+
+        {% if data.widget._image.attachment %}
+            <img alt="blog-post-image" class="object-cover object-center absolute w-full h-full"
+                 src="{{ apos.attachments.url(data.widget._image.attachment, { size: 'max' }) }}">
+        {% endif %}
+
+    </div>
+
+    <div class="bg-gold-10 p-8 pr-12 flex-grow rounded-tr-extra-large z-10">
+
+        <div class="text-2xl font-normal font-cora text-blue mb-3 pb-3 pr-[14px] border-b-2 border-gold">{{ apos.area(data.widget, 'title', { widgets: apos.helpers.textWidget }) }}</div>
+
+        {% if data.widget._edit or data.widget.subtitle.items|length > 0 %}
+            <div class="text-lg font-normal font-gotham text-blue mb-3 pr-[25%]">{{ apos.area(data.widget, 'subtitle', { widgets: apos.helpers.textWidget }) }}</div>
+        {% endif %}
+
+        {% if data.widget._edit or data.widget.copy.items|length > 0 %}
+            <div class="mb-8 pr-6 text-black font-light text-base">{{ apos.area(data.widget, 'copy', { widgets:{ 'rich-text': {} } }) }}</div>
+        {% endif %}
+
+        {% if data.widget.links %}
+
+            <ul class="flex flex-col items-start justify-start w-full mt-8">
+
+                {% for link in data.widget.links %}
+
+                    <li class="font-medium text-blue text-lg md:text-xl font-gotham items-center justify-start">
+
+                        {% if link.is_external %}
+
+                            <a class="hover:underline" href="{{ link.external_url }}"
+                               target="_blank">{{ link.link_title }}&nbsp;<svg class="inline-block" width="13" height="14" viewBox="0 0 13 14" fill="none"
+                                                                          xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.04965 1.46973L8.2837 2.24884L9.52573 3.51222H9.20834C5.924 3.51222 3.25001 6.23217 3.25001 9.57298V10.124H4.33334V9.57298C4.33334 6.82768 6.50944 4.61418 9.20834 4.61418H9.52573L8.2837 5.87755L9.04965 6.65667L11.5993 4.0632L9.04965 1.46973ZM1.08334 4.61418V5.16515V10.6749C1.08334 11.5813 1.81732 12.3279 2.70834 12.3279H10.2917C11.1827 12.3279 11.9167 11.5813 11.9167 10.6749V10.124V9.57298H10.8333V10.124V10.6749C10.8333 10.9863 10.5977 11.2259 10.2917 11.2259H2.70834C2.40229 11.2259 2.16668 10.9863 2.16668 10.6749V5.16515V4.61418H1.08334Z"
+                                          fill="currentColor"/>
+                                </svg></a>
+
+                        {% else %}
+
+                            <a class="hover:underline" href="{{ link._linkPage.slug }}">
+
+                                {% if link.link_title %}
+                                    {{ link.link_title }}
+                                {% else %}
+                                    {{ link._linkPage.title }}
+                                {% endif %}
+
+                                &nbsp;<svg class="inline-block" width="10" height="16" viewBox="0 0 10 16" fill="none"
+                                           xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 15L8 8L0.999999 1" stroke="#EEAC5C" stroke-width="2.5"/>
+                                </svg>
+                            </a>
+
+                        {% endif %}
+
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% endif %}
+
+    </div>
+
+</div>
+

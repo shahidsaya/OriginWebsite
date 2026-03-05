@@ -1,0 +1,228 @@
+@import url("https://use.typekit.net/ybq6upf.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "gotham";
+    src: url("/modules/my-apostrophe-assets/fonts/gotham/gothamlight-webfont.woff")
+        format("woff"),
+      url("/modules/my-apostrophe-assets/fonts/gotham/gothamlight-webfont.woff2")
+        format("woff2");
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "gotham";
+    src: url("/modules/my-apostrophe-assets/fonts/gotham/gothambook-webfont.woff")
+        format("woff"),
+      url("/modules/my-apostrophe-assets/fonts/gotham/gothambook-webfont.woff")
+        format("woff2");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "gotham";
+    src: url("/modules/my-apostrophe-assets/fonts/gotham/gothammedium-webfont.woff")
+        format("woff"),
+      url("/modules/my-apostrophe-assets/fonts/gotham/gothammedium-webfont.woff2")
+        format("woff2");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "gotham";
+    src: url("/modules/my-apostrophe-assets/fonts/gotham/gothambold-webfont.woff")
+        format("woff"),
+      url("/modules/my-apostrophe-assets/fonts/gotham/gothambold-webfont.woff2")
+        format("woff2");
+    font-weight: 700;
+    font-style: normal;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply text-base font-gotham font-normal;
+}
+
+.h1 {
+  @apply text-4xl md:text-5xl lg:text-6xl text-blue-80 font-cora;
+}
+
+.h2-large {
+  @apply text-3xl md:text-5xl font-cora mb-2 md:mb-4;
+}
+
+.h2-small {
+  @apply text-3xl md:text-4xl font-cora mb-2;
+}
+
+.h3 {
+  @apply text-2xl md:text-3xl font-cora mb-2;
+}
+
+.h4 {
+  @apply text-xl md:text-2xl font-cora mb-2;
+}
+
+.p-2xl {
+  @apply text-xl md:text-2xl font-cora mb-2;
+}
+
+.p-xl {
+  @apply text-lg md:text-xl;
+}
+
+.p-lg {
+  @apply text-lg;
+}
+
+.p {
+  @apply text-base;
+}
+
+.p-sm {
+  @apply text-sm;
+}
+
+.p-xs {
+  @apply text-xs;
+}
+
+.text-primary {
+  @apply text-blue;
+}
+
+.text-secondary {
+  @apply text-black;
+}
+
+.w-padded {
+  @apply px-8 mx-auto xl:px-0;
+}
+
+@layer components {
+  .custom-form-radio {
+    @apply z-0 invisible h-0 w-0;
+  }
+
+  .custom-form-radio[type="radio"]:checked + label {
+    @apply bg-black border-black text-white !important;
+  }
+
+  .custom-form-radio-label {
+    @apply flex text-xl font-bold uppercase text-black py-3 px-5 w-full text-xl rounded-lg border border-light-grey text-center cursor-pointer z-10;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px !important;
+    height: 4px !important;
+  }
+}
+
+@layer utilities {
+  .indent-sm {
+    text-indent: -2.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .indent-md {
+    text-indent: -3.5rem;
+    padding-left: 2.5rem;
+  }
+}
+
+/* Alpine.js */
+[x-cloak] {
+  display: none !important;
+}
+
+/* Apostrophe - Admin */
+.apos-space-helper {
+  @apply flex justify-center items-center w-full text-white bg-opacity-50 bg-apos-green font-bold mb-6;
+}
+
+div[data-apos-widget-wrapper="rich-text"] .apos-rich-text a,
+.apos-rich-text a {
+  @apply underline hover:no-underline;
+}
+
+/* Apostrophe - Rich Text */
+div[data-apos-widget-wrapper="rich-text"] .apos-rich-text ul {
+  @apply list-none p-0 m-0;
+}
+
+/*list-disc list-inside indent-sm md:indent-md*/
+
+div[data-apos-widget-wrapper="rich-text"] .apos-rich-text ul li {
+  @apply indent-sm md:indent-md;
+}
+
+div[data-apos-widget-wrapper="rich-text"] .apos-rich-text ul li::before {
+  content: "\2022";
+  @apply indent-sm md:indent-md text-blue pr-2.5;
+}
+
+div[data-apos-widget-wrapper="rich-text"] .apos-rich-text ol {
+  @apply p-0 list-decimal list-outside ml-4.5 md:ml-9;
+}
+
+div[data-apos-widget-wrapper="rich-text"] .apos-rich-text ol li {
+  @apply pl-1.5 md:pl-2;
+}
+
+/* Apostrophe - Pager */
+.apos-ui .apos-pager {
+  @apply w-full text-center text-xl py-4 bg-extra-light-grey rounded-lg;
+}
+
+.apos-pager .apos-pager-number.apos-active {
+  @apply bg-gold text-white px-4 py-2 rounded-md;
+}
+
+.apos-pager .apos-pager-number a {
+  @apply px-4 py-2 hover:bg-extra-light-grey rounded-md;
+}
+
+/* Apostrophe Area */
+.apos-area:not([data-apos-area-edit]),
+.apos-area:not([data-apos-area-edit]) .apos-area-widget-wrapper,
+.apos-area:not([data-apos-area-edit]) .apos-area-widget {
+  @apply contents !important;
+}
+
+.apos-area[data-apos-area-edit] .apos-area-widgets {
+  @apply contents !important;
+}
+
+.apos-area[data-apos-area-edit] {
+  @apply w-full outline-apos-green hover:outline-1 hover:outline-dashed mb-5;
+}
+
+/* Table */
+thead,
+th {
+  @apply bg-gold-20 text-blue-200;
+}
+
+table {
+  @apply border-2 border-gold-60 text-center text-base table-auto w-full;
+}
+
+td,
+th,
+thead {
+  @apply text-xs md:text-lg border-2 border-gold-60 p-2 md:p-6 lg:p-10;
+}
+
+td {
+  @apply text-xs md:text-lg;
+}

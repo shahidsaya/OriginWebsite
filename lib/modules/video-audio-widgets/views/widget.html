@@ -1,0 +1,45 @@
+{% if apos.helpers.isDraftMode(data) %}
+	<div class="h-16 apos-space-helper">
+		<span>Audio + Video</span>
+	</div>
+{% endif %}
+
+	{%- if data.widget.vimeoID -%}
+		<div class="plyr__video-embed relative" id="audio-player-{{ data.widget._id }}">
+			<iframe
+					src="https://player.vimeo.com/video/{{ data.widget.vimeoID }}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media"
+					allowfullscreen
+					allowtransparency
+					allow="autoplay"
+			></iframe>
+		</div>
+	{%- elseif not data.widget._file -%}
+		<div class="apos-space-helper">
+			<span>The file is likely not committed or missing.</span>
+		</div>
+	{%- elseif data.widget._file.attachment.extension === 'mp4' -%}
+		{# Video #}
+		<video id="audio-player-{{ data.widget._id }}"
+		       playsinline
+		       controls
+				{# data-poster="/path/to/poster.jpg" #}>
+			<source src="{{ apos.attachments.url(data.widget._file.attachment, {}) }}"
+			        type="video/mp4"/>
+
+			{# Captions are optional #}
+			{# <track kind="captions"
+			       label="English captions"
+			       src="/path/to/captions.vtt"
+			       srclang="en"
+			       default/> #}
+		</video>
+
+	{%- elseif data.widget._file.attachment.extension === 'mp3' -%}
+		{# Audio #}
+		<audio id="audio-player-{{ data.widget._id }}"
+		       controls>
+			<source src="{{ apos.attachments.url(data.widget._file.attachment, {}) }}"
+			        type="audio/mp3"/>
+		</audio>
+	{%- endif -%}
+

@@ -1,0 +1,29 @@
+<div x-show="searchBarOpen"
+     x-cloak
+     class="hidden lg:block absolute w-full bg-gold-10 w-full px-6"
+     id="desktopSearch"
+     x-transition:enter="transition ease-in-out duration-500 transform"
+     x-transition:enter-start="-translate-y-full opacity-0"
+     x-transition:enter-end="translate-y-0 opacity-100"
+     x-transition:leave="transition ease-in-out duration-500 transform"
+     x-transition:leave-start="translate-y-0 opacity-100"
+     x-transition:leave-end="-translate-y-full opacity-0"
+>
+
+    <div class="pt-14 pb-24 w-full max-w-screen-lg mx-auto">
+
+        <form method="GET" action="/search" class="w-full flex py-3 border-b border-blue">
+            <label class="w-full"><span class="sr-only">Search</span>
+                <input class="w-full bg-transparent border-none px-0 text-blue text-xl" type="text" name="q"
+                       placeholder="Search"/>
+            </label>
+            <button type="submit" value="Search"><span class="sr-only">Submit</span>
+                <svg width="16" height="30" viewBox="0 0 16 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 28.1641L14 14.5312L0.999999 0.898342" class="stroke-gold" stroke-width="2.5"/>
+                </svg>
+            </button>
+        </form>
+
+    </div>
+
+</div>

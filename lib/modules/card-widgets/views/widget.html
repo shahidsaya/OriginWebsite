@@ -1,0 +1,32 @@
+{#<script>console.log({{ isDraftMode | dump | safe }})</script>#}
+
+{% if apos.helpers.isDraftMode(data) %}
+	<div class="h-16 apos-space-helper">
+		<span>Card</span>
+	</div>
+{% endif %}
+
+<div class="flex flex-col items-center text-center">
+
+	{% if data.widget._edit or data.widget.icon.items|length > 0 %}
+		{{ apos.area(data.widget, 'icon', { widgets: { 'icon': {} } }) }}
+	{% endif %}
+
+	{% if data.widget._edit or data.widget.title.items|length > 0 %}
+		<div class="pt-6 {{ apos.helpers.textColor(data.widget.titleColor) }} {{ apos.helpers.textSize(data.widget.titleSize) }} {{ apos.helpers.fontFamily(data.widget.titleFont) }} {{ apos.helpers.textWeight(data.widget.titleFontWeight) }} {{ apos.helpers.textAlign(data.widget.titleTextAlign) }} font-bold w-full">
+			{{ apos.area(data.widget, 'title', { widgets: apos.helpers.textWidget }) }}
+		</div>
+	{% endif %}
+
+	{% if data.widget._edit or data.widget.subtitle.items|length > 0 %}
+		<div class="pt-4 {{ apos.helpers.textColor(data.widget.subtitleColor) }} {{ apos.helpers.textSize(data.widget.subtitleSize) }} {{ apos.helpers.textWeight(data.widget.subtitleFontWeight) }} {{ apos.helpers.textAlign(data.widget.subtitleTextAlign) }} w-full">
+			{{ apos.area(data.widget, 'subtitle', { widgets: apos.helpers.textWidget }) }}
+		</div>
+	{% endif %}
+
+	{% if data.widget._edit or data.widget.mainArea.items|length > 0 %}
+		<div class="pt-4 w-full">
+			{{ apos.area(data.widget, 'mainArea', { widgets: apos.helpers.allWidgets }) }}
+		</div>
+	{% endif %}
+</div>

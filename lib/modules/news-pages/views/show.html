@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div class="relative block h-[400px] -mb-[100px] lg:h-[800px] lg:-mb-[400px] z-0">
+
+        <img alt="background-image"
+             class="object-cover object-center absolute w-full h-full"
+             src="{{ apos.attachments.url(data.piece._image.attachment, { size: 'max' }) }}">
+
+    </div>
+
+    <div class="relative px-6 pb-12 bg-white rounded-tr-[100px] lg:rounded-tr-[18rem] z-10">
+
+        <div class="mx-auto max-w-screen-lg pt-16 lg:pt-32">
+
+            <p class="font-gotham font-medium text-lg md:text-2xl text-blue uppercase mb-2 md:mb-6">What's New</p>
+            <h1 class="h1 text-blue mb-8 md:mb-12">{{ data.piece.title }}</h1>
+
+            {{ apos.area(data.piece, 'content', { widgets: apos.helpers.allWidgets }) }}
+
+        </div>
+
+    </div>
+
+    <div class="relative py-12 max-w-full bg-white">
+        {{ apos.area(data.piece, 'bottom', { widgets: apos.helpers.allWidgets }) }}
+    </div>
+
+{% endblock %}

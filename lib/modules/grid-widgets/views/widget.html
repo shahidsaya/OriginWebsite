@@ -1,0 +1,28 @@
+{#<script>console.log('grid-widgets', {{ data.widget | dump | safe }})</script>#}
+
+{% if data.widget.gridFlow === 'row' %}
+	{% set items = data.widget.gridColumns|int %}
+{% elseif data.widget.gridFlow === 'column' %}
+	{% set items = data.widget.gridRow|int %}
+{% endif %}
+
+{% if apos.helpers.isDraftMode(data) %}
+	<div class="h-16 apos-space-helper">
+		<span>Grid</span>
+	</div>
+{% endif %}
+
+{# TODO gap x/y separate #}
+{# TODO "auto-cols-auto col-start-2" --> to get rid of same width of each column/row #}
+<div class="{% if data.widget.enableCustomStyling !== 'all' %}grid grid-flow-{{ data.widget.gridFlow }} {{ apos.helpers.gap(data.widget.gap) }}{% if data.widget.gridFlow === 'row' %} {{ apos.helpers.gridColumns(data.widget.gridColumns) }}{% elseif data.widget.gridFlow === 'column' %} {{ apos.helpers.gridRows(data.widget.gridRows) }}{% endif %}{% endif %}">
+	{# {% for item in range(0, items) %}
+		<div class="{% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(data.widget, 'area' + loop.index, { widgets: apos.helpers.allWidgets }) }}
+		</div>
+	{% endfor %} #}
+	{% for item in data.widget.items %}
+		<div class="{% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+			{{ apos.area(item, 'mainArea', { widgets: apos.helpers.allWidgets }) }}
+		</div>
+	{% endfor %}
+</div>

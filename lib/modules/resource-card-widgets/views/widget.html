@@ -1,0 +1,37 @@
+{#<script>console.log('service-card', {{ data.widget | dump | safe }})</script>#}
+
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Resource Cards</span>
+    </div>
+{% endif %}
+
+<ul class="w-full pt-10 md:py-12 flex flex-wrap items-start justify-start lg:justify-center">
+
+    {% for link in data.widget._resourcePage %}
+
+        <li class="relative w-full basis-full mb-6 md:mb-0 md:basis-1/2 lg:basis-1/4">
+
+            <div class="flex md:flex-col items-center justify-start md:p-6 font-bold text-blue h-full">
+
+                {% if link.icon %}
+
+                    <div class="flex items-center w-[125px] h-[125px] md:w-[220px] md:h-[220px] rounded-full justify-center h-full p-4 bg-gold-20 shrink-0">
+                        <img class="max-w-[80px] max-h-[80px] md:max-w-[115px] md:max-h-[115px] text-center" src="{{ apos.attachments.url(apos.images.first(link), { size: 'one-half' }) }}" alt="" />
+                    </div>
+
+                {% endif %}
+
+                <a class="md:mt-8 pl-6 md:px-0 font-medium text-xl text-blue md:max-w-[190px] underline-offset-4 decoration-gold decoration-2 hover:underline" href="{{ link.slug }}">
+                    {{ link.title }}&nbsp;<svg class="inline-block" width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.03271 15.3169L8.03271 8.20597L1.03271 1.09505" stroke="#EEAC5C" stroke-width="2.5"/>
+                    </svg>
+                </a>
+
+            </div>
+
+        </li>
+
+    {% endfor %}
+
+</ul>

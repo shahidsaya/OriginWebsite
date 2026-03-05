@@ -1,0 +1,21 @@
+{#<script>console.log('slider-inner-promo-widgets', {{ data.widget | dump | safe }})</script>#}
+
+<div class="relative">
+	<img alt="background-image" class="object-cover object-center absolute w-full h-full" src="{{ apos.attachments.url(data.widget._backgroundImage.attachment, { size: 'max' }) }}">
+	<div class="w-padded">
+		<div class="bg-white bg-opacity-[0.85] p-8 space-y-6 inline-flex flex-col relative mt-40 mb-20 lg:mt-64 lg:mb-72 rounded-2xl max-w-md">
+			<div class="text-3xl font-normal font-cora text-blue">
+				{# {{ apos.area(data.widget, 'title', { widgets: apos.helpers.textWidget }) }} #}
+				{{ data.widget.title }}
+			</div>
+			<div class="text-lg leading-relaxed text-black">
+				{# {{ apos.area(data.widget, 'subtitle', { widgets: apos.helpers.textWidget }) }} #}
+				{{ data.widget.subtitle }}
+			</div>
+			<a href="" class="flex items-center space-x-2 text-lg font-bold tracking-wider uppercase text-blue">
+				<span>See more</span>
+				<img src="/modules/my-apostrophe-assets/images/icons/arrow-right.svg" alt="">
+			</a>
+		</div>
+	</div>
+</div>

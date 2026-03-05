@@ -1,0 +1,16 @@
+/.DS_Store
+/locales
+/npm-debug.log
+/data
+/public/uploads
+/node_modules
+/public/modules/
+/public/modules/*
+/public/apos-minified/
+/public/css/*.css
+/public/css/*.map
+/public/css/images/
+/public/css/master-*.less
+/public/js/_site-compiled.js
+.env
+.idea

@@ -1,0 +1,41 @@
+{# <script>console.log('journey-widgets', {{ data.widget | dump | safe }})</script> #}
+
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Journey</span>
+    </div>
+{% endif %}
+
+<div class="w-full lg:w-[1105px] mx-auto px-6 grid grid-cols-1 mb-10 lg:grid-flow-col lg:grid-cols-3 gap-x-0 gap-y-8 lg:gap-x-10 lg:gap-y-0">
+
+    <div class="col-span-1 w-full mx-auto max-w-[330px] lg:col-span-1 {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+        {{ apos.area(data.widget, 'area4', { widgets: { 'apostrophe-images': {template: 'round'} } }) }}
+    </div>
+
+    <div class="col-span-1 lg:col-span-2 w-full {% if apos.helpers.isDraftMode(data) %}border border-apos-green{% endif %}">
+        <div class="flex flex-col lg:flex-row">
+
+            <div class="lg:mx-10 text-blue-80 text-5xl font-cora">
+                {{ apos.area(data.widget, 'area5', { widgets: apos.helpers.textWidget }) }}
+            </div>
+
+            <div class="flex flex-col">
+
+                {% if data.widget.area1 %}
+				<span class="text-3xl lg:text-4xl text-blue flex items-end border-b-2 border-gold pb-3.5 font-cora">{{ apos.area(data.widget, 'area1', { widgets: apos.helpers.textWidget }) }}
+				</span>
+                {% endif %}
+
+                <span class="text-base md:text-xl lg:text-2xl text-black flex items-end font-gotham mt-3.5 mb-4 md:mb-6">
+					{{ apos.area(data.widget, 'area2', { widgets: apos.helpers.textWidget }) }}
+				</span>
+
+                <div class="flex justify-center">
+                    {{ apos.area(data.widget, 'area3', { widgets: { 'button': {} } }) }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

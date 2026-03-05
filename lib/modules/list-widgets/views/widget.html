@@ -1,0 +1,44 @@
+{#<script>console.log('list-widgets', {{ data.widget | dump | safe }})</script>#}
+
+{% if data.widget.style === 'list-decimal' %}
+
+	<ol class="{{ data.widget.style }} text-left
+		{{ apos.helpers.textColor(data.widget.textColor) }}
+		{{ apos.helpers.textSize(data.widget.textSize) }}
+		{{ apos.helpers.lineSpacing(data.widget.lineSpacing) }}
+		{{ apos.helpers.verticalSpaceBetween(data.widget.verticalSpaceBetween) }}">
+
+{% elif data.widget.style === 'custom' %}
+
+	<ul class="list-none text-left
+		{{ apos.helpers.textColor(data.widget.textColor) }}
+		{{ apos.helpers.textSize(data.widget.textSize) }}
+		{{ apos.helpers.lineSpacing(data.widget.lineSpacing) }}
+		{{ apos.helpers.verticalSpaceBetween(data.widget.verticalSpaceBetween) }}">
+
+{% else %}
+
+	<ul class="{{ data.widget.style }} text-left
+		{{ apos.helpers.textColor(data.widget.textColor) }}
+		{{ apos.helpers.textSize(data.widget.textSize) }}
+		{{ apos.helpers.lineSpacing(data.widget.lineSpacing) }}
+		{{ apos.helpers.verticalSpaceBetween(data.widget.verticalSpaceBetween) }}">
+
+{% endif %}
+
+	{% for listItem in data.widget.listItems %}
+		<li class="{% if listItem.icon.items.length > 0 %} flex items-center {% endif %}">
+			{% if listItem.icon.items.length > 0 %}
+				<div class="mr-2 max-w-xl h-auto">
+					{{ apos.area(listItem, 'icon', { widgets: { 'icon': {} } }) }}
+				</div>
+			{% endif %}
+			<div>{{ apos.area(listItem, 'text', { widgets: apos.helpers.textWidget }) }}</div>
+		</li>
+	{% endfor %}
+
+{% if data.widget.style === 'list-decimal' %}
+	</ol>
+{% else %}
+	</ul>
+{% endif %}

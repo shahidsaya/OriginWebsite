@@ -1,0 +1,7 @@
+{#<script>console.log('apostrophe-images-widgets/single', {{ data.widget | dump | safe }})</script>#}
+
+{# apos.images.getImageAlt(apos.images.first(data.widget)) #}
+<img alt="{{ data.widget._pieces[0].item.slug }}"
+     class="w-screen object-contain rounded-full"
+     data-image src="{{ apos.attachments.url(data.widget._pieces[0].item.attachment, { size: 'full' }) }}"
+/>

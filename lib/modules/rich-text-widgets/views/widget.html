@@ -1,0 +1,7 @@
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Rich Text</span>
+    </div>
+{% endif %}
+
+{{ apos.singleton(data.widget, 'text', 'apostrophe-rich-text', { toolbar: apos.helpers.baseToolbar, styles: apos.helpers.baseStyles }) }}

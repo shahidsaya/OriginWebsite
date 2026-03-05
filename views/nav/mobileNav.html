@@ -1,0 +1,60 @@
+<div class="z-50">
+
+    <div class="flex items-center justify-between">
+
+        {% include 'nav/langSwitcher.html' %}
+
+        <button x-on:click="mobileMenuOpen = false; setSelectedParent(null)">
+            <span class="sr-only">Close</span>
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 21L21 1" stroke="#EEAC5C" stroke-width="1.57349"/>
+                <path d="M21 21L1 1" stroke="#EEAC5C" stroke-width="1.57349"/>
+            </svg>
+        </button>
+
+    </div>
+
+    <ul class="w-full mt-12">
+
+        <template x-for="item in menu" :key="item.id">
+
+            <template x-if="!item.hideInNav">
+
+                <li class="py-3 pr-2 flex border-b border-blue last:border-none">
+
+                    {#    On select set active desktop drawer    #}
+                    <template x-if="item.children.length">
+                        <button x-on:click="setSelectedParent(item.id)"
+                                class="w-full hover:text-gold text-blue flex text-lg font-medium items-center justify-between">
+                            <span x-text="item.title"></span>
+                            <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 15L8 8L0.999999 1" stroke="#EEAC5C" stroke-width="1.5"/>
+                            </svg>
+                        </button>
+                    </template>
+
+                    <template x-if="!item.children.length">
+                        <a x-bind:href="item.url" x-text="item.title" x-bind:data-title="item.title"
+                           class="hover:text-gold block w-full text-blue text-lg text-left font-medium">
+                        </a>
+                    </template>
+
+                </li>
+
+            </template>
+
+        </template>
+
+    </ul>
+
+    <form method="GET" action="/search" class="w-full flex py-1 border-b border-blue mt-12">
+        <label class="sr-only" for="search">Search</label>
+        <input id="search" class="w-full bg-transparent border-none px-0 text-blue text-base" type="text" name="q"
+               placeholder="Search"/>
+        <button type="submit" value="Search"><span class="sr-only">Submit</span>
+            {% include 'svgs/searchIcon.html' %}
+        </button>
+    </form>
+
+</div>

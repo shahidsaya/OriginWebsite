@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ data.page.title }}{% endblock %}
+
+{% block main %}
+
+	{#<script>console.log('apostrophe-search filter', {{ data.filters | dump | safe }})</script>
+	<script>console.log('apostrophe-search query', {{ data.query | dump | safe }})</script>
+	<script>console.log('apostrophe-search docs', {{ data.docs | dump | safe }})</script>#}
+
+	<div class="py-8 max-w-full text-center w-padded md:max-w-screen-lg">
+		<form data-apos-search-page-form method="GET" action="{{ data.url | e }}#main">
+			{% if data.filters %}
+				<div class="ld-meta">{{ __ns('apostrophe', 'Filter Results By Type') }}</div>
+				<ul>
+					{% for filter in data.filters %}
+						<li>
+							<input data-apos-search-filter type="checkbox" name="{{ filter.name | e }}"
+							       {% if filter.value %}checked{% endif %}
+							       value="1"
+							/>{{ filter.label | e }}
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+			<div class="py-4 text-5xl font-normal ld-meta text-blue font-cora">{{ __ns('apostrophe', 'New Search') }}</div>
+			<div class="flex items-center my-5 mx-auto w-full max-w-xl">
+				<input type="search" data-apos-search-field value="{{ data.query.q | e }}" name="q" class="py-3 pl-6 w-full rounded-tl-full rounded-bl-full border-2 focus:ring-transparent focus:ring-0 focus:border-gold focus:outline-none b-1 border-gold"/>
+				<button type="submit" class="flex justify-center items-center py-3 pr-7 pl-5 space-x-2 rounded-tr-full rounded-br-full border-0 transition-all duration-200 ease-linear bg-gold filter brightness-100 hover:brightness-110">
+					<img src="/modules/my-apostrophe-assets/images/icons/search.svg" alt="search-icon">
+					<span class="text-xl text-white">Search</span>
+				</button>
+			</div>
+		</form>
+		{% if data.query.q|length !== 0 and data.docs|length !== 0 %}
+			<p class="py-4 text-2xl text-primary">
+				Search results for "<span class="text-secondary">{{ data.query.q | e }}</span>"
+			</p>
+		{% endif %}
+		<div class="pt-8 space-y-2 text-center">
+			{% if data.docs|length === 0 %}
+				<p class="text-2xl">
+					No results found "<span class="text-secondary">{{ data.query.q | e }}</span>"
+				</p>
+			{% else %}
+				{% for doc in data.docs %}
+					{% if doc.type !== 'no-index' and doc.type !== 'pricing' and not 'No Index' in doc.title and not doc.hide %}
+						<h4 class="text-2xl">
+							{% if doc._url %}
+							<a href="{{ doc._url }}">{% endif %}{{ doc.title }}{% if doc._url %}</a>{% endif %}
+						</h4>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		</div>
+		<div class="mt-8">
+			{% include "pager.html" %}
+		</div>
+	</div>
+{% endblock %}
+
+
+
+{#
+{% extends "layout.html" %}
+{% import 'apostrophe-templates:macros/masthead.html' as masthead %}
+{% import 'apostrophe-templates:macros/searchbar.html' as searchbar %}
+{% import 'apostrophe-templates:macros/generic-cards.html' as genericCards %}
+{% import 'apostrophe-templates:macros/artist-cards.html' as artistCards %}
+{% import 'apostrophe-templates:macros/artwork-cards.html' as artworkCards %}
+{% import 'apostrophe-pager:macros.html' as pager %}
+{% set types = apos.modules['apostrophe-search'].options.types %}
+{% set page = data.page %}
+
+{% block main %}
+  {% if data.query.search %}
+    {% set query = data.query.search %}
+  {% elif data.query.tag %}
+    {% set query = data.query.tag %}
+  {% endif %}
+
+  {{ masthead.render(data.page, { title: 'Search results for ‘' + query + '’', search: query } ) }}
+
+  <div class="o-wrapper o-page c-search-results-page">
+
+    <div class="o-container o-container--medium c-search-results-page__content">
+      {% for type in types %}
+        {% if data.docs[type] %}
+          <h2 class="o-section-header c-search-result__header">Related {{ type | capitalize }}s</h2>
+          <div class="c-search-result__group">
+            {% if type === 'artwork' %}
+              {{ artworkCards.render(data.docs[type]) }}
+            {% elif type === 'artist' %}
+              {{ artistCards.render(data.docs[type]) }}
+            {% else %}
+              {{ genericCards.render(data.docs[type], {
+                schema: ['title', 'startDate', 'publishedDate', 'tags', { label: 'Date: ', field: 'year' } ]
+              }) }}
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+      <div class="c-pager">
+        {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url) }}
+      </div>
+    </div>
+  </div>
+{% endblock %} #}

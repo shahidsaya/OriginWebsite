@@ -1,0 +1,43 @@
+{# <script>console.log('page-header-widgets', {{ data.widget | dump | safe }})</script> #}
+
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Page Header</span>
+    </div>
+{% endif %}
+
+
+<div class="relative w-full overflow-hidden grid grid-cols-1 md:grid-cols-2 items-stretch justify-between">
+
+    <div class="relative bg-blue-10 text-blue py-6 lg:py-24 px-6 flex items-center justify-start lg:justify-end">
+        <div class="lg:max-w-[600px]">
+
+            {% if data.widget.sectionTitle %}
+                <div class="text-lg lg:text-xl font-medium uppercase text-blue-100 mb-1 md:mb-1">
+                    {{ apos.area(data.widget, 'sectionTitle', { widgets: apos.helpers.textWidget }) }}
+                </div>
+            {% endif %}
+
+            <div class="text-4xl md:text-5xl lg:text-6xl font-cora text-blue">
+                {{ apos.area(data.widget, 'title', { widgets: apos.helpers.textWidget }) }}
+            </div>
+
+            {% if data.widget.subtitle %}
+                <div class="text-xl md:text-xl lg:text-2xl mt-2 md:mt-4 font-cora text-blue-100">
+                    {{ apos.area(data.widget, 'subtitle', { widgets: apos.helpers.textWidget }) }}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+    <div class="relative flex items-center justify-end w-full after:-z-10 after:absolute after:w-full lg:after:w-1/2 after:left-0 after:h-full after:rounded-bl-extra-large md:after:rounded-bl-none md:after:rounded-tr-extra-large after:content-[''] after:top-0 after:bg-blue-10 md:pt-12 pr-8 md:pr-0 pb-12 lg:py-16 md:pl-8">
+
+        <div class="w-full h-[250px] md:h-[307px] lg:h-[519px] rounded-r-full md:rounded-l-full md:rounded-r-none left-0 z-10 bg-no-repeat bg-cover bg-right md:bg-left"
+             style="background-image:url({{ apos.attachments.url(data.widget._backgroundImage.attachment, { size: 'max' }) }});">
+        </div>
+
+    </div>
+
+</div>

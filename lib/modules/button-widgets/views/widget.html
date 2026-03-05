@@ -1,0 +1,57 @@
+{# <script>console.log('button-widgets', {{ data.widget | dump | safe }})</script> #}
+
+<div class="flex {{ apos.helpers.justifyContent(data.widget.align) }}">
+
+    {% if (data.widget.buttonType === 'link') %}
+
+        <a href="{{ data.widget._linkPage._url }}"
+           target="{{ data.widget.linkTarget }}"
+           title="{{ data.widget._linkPage.title }}"
+           class="{% if (data.widget.enableCustomStyling === 'essential') or (data.widget.enableCustomStyling === 'all') %}{{ data.widget.customStyling }} {% else %}{{ apos.helpers.textColor(data.widget.textColor) }} {{ apos.helpers.backgroundColor(data.widget.backgroundColor) }} {{ apos.helpers.borderColor(data.widget.borderColor) }} {% if data.widget.borderColor !== 'none' %} border-2{% endif %}{% endif %}{% if data.widget.enableCustomStyling !== 'all' %} inline-flex items-center py-3 px-5 md:px-12  rounded-full text-lg md:text-xl font-semibold outline-none focus:outline-none transition-all duration-200 ease-linear filter text-center brightness-100 hover:brightness-125{% endif %} {{ apos.helpers.width(data.widget.width) }} {{ apos.helpers.marginBottom(data.widget.marginBottom) }} {% if data.widget.width !== 'none' %}flex justify-center{% endif %}
+           ">
+            {{ data.widget.buttonText }}
+        </a>
+
+    {% elif (data.widget.buttonType === 'externalLink') %}
+
+        <a href="{{ data.widget.externalLink }}"
+           target="{{ data.widget.linkTarget }}"
+           class="flex flex-row justify-center items-center {% if (data.widget.enableCustomStyling === 'essential') or (data.widget.enableCustomStyling === 'all') %}{{ data.widget.customStyling }} {% else %}{{ apos.helpers.textColor(data.widget.textColor) }} {{ apos.helpers.backgroundColor(data.widget.backgroundColor) }} {{ apos.helpers.borderColor(data.widget.borderColor) }} {% if data.widget.borderColor !== 'none' %} border-2{% endif %}{% endif %}{% if data.widget.enableCustomStyling !== 'all' %} inline-flex items-center py-3 px-5 md:px-12 rounded-full text-base md:text-xl font-semibold outline-none focus:outline-none transition-all duration-200 text-center ease-linear filter brightness-100 hover:brightness-125{% endif %}">
+            <span>{{ data.widget.buttonText }}</span>
+        </a>
+
+    {% elif (data.widget.buttonType === 'download') %}
+
+        <a href="{{ data.widget.downloadUrl }}"
+           title="{{ data.widget.downloadUrl }}"
+           target="{{ data.widget.linkTarget }}"
+           class="max-w-full flex flex-row justify-center items-center {% if (data.widget.enableCustomStyling === 'essential') or (data.widget.enableCustomStyling === 'all') %}{{ data.widget.customStyling }} {% else %}{{ apos.helpers.textColor(data.widget.textColor) }} {{ apos.helpers.backgroundColor(data.widget.backgroundColor) }} {{ apos.helpers.borderColor(data.widget.borderColor) }} {% if data.widget.borderColor !== 'none' %} border-2{% endif %}{% endif %}{% if data.widget.enableCustomStyling !== 'all' %} inline-flex items-center py-3 px-5 md:px-12 rounded-full text-base md:text-xl font-semibold outline-none focus:outline-none text-center transition-all duration-200 ease-linear filter brightness-100 hover:brightness-125{% endif %}">
+            <span>{{ data.widget.buttonText }}</span>
+            <span class="ml-3 truncate">
+				<img src="/modules/my-apostrophe-assets/images/icons/download.svg"
+                     alt="download-icon">
+			</span>
+        </a>
+
+    {% elif (data.widget.buttonType === 'file') %}
+
+        <a href="{{ apos.attachments.url(data.widget._file.attachment) }}"
+           title="{{ data.widget._file.attachment.title }}"
+           target="{{ data.widget.linkTarget }}"
+           class="max-w-full flex flex-row justify-center items-center {% if (data.widget.enableCustomStyling === 'essential') or (data.widget.enableCustomStyling === 'all') %}{{ data.widget.customStyling }} {% else %}{{ apos.helpers.textColor(data.widget.textColor) }} {{ apos.helpers.backgroundColor(data.widget.backgroundColor) }} {{ apos.helpers.borderColor(data.widget.borderColor) }} {% if data.widget.borderColor !== 'none' %} border-2{% endif %}{% endif %}{% if data.widget.enableCustomStyling !== 'all' %} inline-flex items-center py-3 px-5 md:px-12 rounded-full text-base md:text-xl font-semibold outline-none focus:outline-none text-center transition-all duration-200 ease-linear filter brightness-100 hover:brightness-125{% endif %}">
+            <span>{{ data.widget.buttonText }}</span>
+            <span class="ml-3 truncate">
+                <img src="/modules/my-apostrophe-assets/images/icons/download.svg" alt="download-icon">
+			</span>
+        </a>
+
+    {% else %}
+
+        <button type="submit"
+                class="{% if (data.widget.enableCustomStyling === 'essential') or (data.widget.enableCustomStyling === 'all') %}{{ data.widget.customStyling }} {% else %}{{ apos.helpers.textColor(data.widget.textColor) }} {{ apos.helpers.backgroundColor(data.widget.backgroundColor) }} {{ apos.helpers.borderColor(data.widget.borderColor) }}{% if data.widget.borderColor !== 'none' %} border-2{% endif %}{% endif %}{% if data.widget.enableCustomStyling !== 'all' %} inline-flex items-center py-3 px-5 md:px-12 rounded-full text-base md:text-xl font-semibold outline-none focus:outline-none transition-all duration-200 ease-linear filter text-center brightness-100 hover:brightness-125{% endif %}">
+            {{ data.widget.buttonText }}
+        </button>
+
+    {% endif %}
+
+</div>

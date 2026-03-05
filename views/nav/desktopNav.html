@@ -1,0 +1,27 @@
+<nav id="DesktopNav" class="w-full hidden lg:flex items-center justify-end">
+    <template x-for="item in menu" :key="item.id">
+        <template x-if="!item.hideInNav">
+            <div class="ml-7 flex">
+
+                {#    On select set active desktop drawer    #}
+                <template x-if="item.children.length > 0">
+                    <button x-on:click="setSelectedParent(item.id)"
+                            class="hover:text-gold text-blue ml-1 flex text-base font-medium items-center justify-center">
+                        <span x-text="item.title" x-bind:data-title="item.title"></span>
+                        <svg width="14" height="7" viewBox="0 0 10 7" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                    </button>
+                </template>
+
+                <template x-if="!item.children.length">
+                    <a x-bind:href="item.url" x-text="item.title" x-bind:data-title="item.title"
+                       class="hover:text-gold text-blue flex text-base font-medium items-center justify-center">
+                    </a>
+                </template>
+
+            </div>
+        </template>
+    </template>
+</nav>

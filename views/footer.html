@@ -1,0 +1,54 @@
+<footer class="relative text-white w-full">
+
+    <div class="bg-blue px-6 pt-20 pb-10">
+
+        <div x-data="header()" class="w-full mx-auto max-w-screen-xl mb-16">
+            <img x-show="lang !== 'fr'" class="w-[230px] lg:w-[300px] z-10 mx-auto md:mx-0" src="/modules/my-apostrophe-assets/images/logo_white.png" alt="Origin Logo">
+            <img x-show="lang == 'fr'" class="w-[230px] lg:w-[300px] z-10 mx-auto md:mx-0" src="/modules/my-apostrophe-assets/images/logo_white_fr.png" alt="Origin Logo">
+        </div>
+
+        <div class="w-full mx-auto max-w-screen-xl">
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-0 lg:gap-y-0 lg:gap-x-60">
+
+                <div class="flex flex-col items-start justify-start w-full">
+                    {{ apos.area(data.global, 'footerColumn1', {widgets: apos.helpers.footerWidgets}) }}
+                </div>
+
+                <div class="flex flex-col items-start justify-between">
+
+                    <div class="flex flex-col items-start justify-start w-full">
+
+                        <img src="/modules/my-apostrophe-assets/images/icons/flag.png" class="mb-4 w-12" alt="LGBTQ2SIA+ Flag">
+
+                        <div class="w-full text-xs md:text-base">
+                            {{ apos.area(data.global, 'footerColumn2', {widgets: apos.helpers.footerWidgets}) }}
+                        </div>
+
+                    </div>
+
+                    <div class="flex justify-between items-end mt-6 w-full">
+
+                        <p class="text-xxs md:text-sm">
+                            ©{{ apos.helpers.thisYear() }} Origin Sperm Bank
+                        </p>
+
+                        <ul class="flex text-xxs md:text-sm font-normal font-gotham">
+                            <li class="pr-2 border-r border-gold ">
+                                <a href="/terms-conditions">Terms & Conditions</a>
+                            </li>
+                            <li class="px-2">
+                                <a href="/privacy-policy">Privacy Policy</a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</footer>

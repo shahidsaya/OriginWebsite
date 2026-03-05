@@ -1,0 +1,8 @@
+{#<script>console.log('anchor-widgets', {{ data.widget | dump | safe }})</script>#}
+{% if apos.helpers.isDraftMode(data) %}
+    <div class="h-16 apos-space-helper">
+        <span>Anchor Link</span>
+    </div>
+{% endif %}
+
+<a id="{{ data.widget.anchorName }}">{% if data.widget._edit %}Anchor: {{ data.widget.anchorName }}{% endif %}</a>
