@@ -5,16 +5,19 @@
   "author": "Art & Science",
   "main": "app.js",
   "scripts": {
-		"start": "node app.js",
-		"build": "npm run copy-css-images && npm run tailwind-build:production && APOS_BUNDLE=1 node app apostrophe:generation",
-		"dev": "nodemon app.js & npm run tailwind-dev",
-		"tailwind-dev": "cross-env TAILWIND_MODE=watch NODE_ENV=development tailwindcss -i tailwind.css -o lib/modules/apostrophe-assets/public/css/tailwind.css -w",
-		"tailwind-build:development": "cross-env TAILWIND_MODE=build NODE_ENV=development tailwindcss -i tailwind.css -o lib/modules/apostrophe-assets/public/css/tailwind.css",
-		"tailwind-build:production": "TAILWIND_MODE=build NODE_ENV=production tailwindcss -i tailwind.css -o lib/modules/apostrophe-assets/public/css/tailwind.css --minify",
-		"copy-css-images": "mkdir -p public/css/images && cp -R static/images/* public/css/images/",
-		"docker-backup-content": "docker-compose exec apostrophe ./scripts/docker-backup-content",
-		"docker-restore-content": "docker-compose exec apostrophe ./scripts/docker-restore-content"
-	},
+    "start": "node app.js",
+    "build": "npm run copy-css-images && npm run tailwind-build:production && APOS_BUNDLE=1 node app apostrophe:generation",
+    "dev": "nodemon app.js & npm run tailwind-dev",
+    "tailwind-dev": "cross-env TAILWIND_MODE=watch NODE_ENV=development tailwindcss -i tailwind.css -o lib/modules/apostrophe-assets/public/css/tailwind.css -w",
+    "tailwind-build:development": "cross-env TAILWIND_MODE=build NODE_ENV=development tailwindcss -i tailwind.css -o lib/modules/apostrophe-assets/public/css/tailwind.css",
+    "tailwind-build:production": "TAILWIND_MODE=build NODE_ENV=production tailwindcss -i tailwind.css -o lib/modules/apostrophe-assets/public/css/tailwind.css --minify",
+    "copy-css-images": "mkdir -p public/css/images && cp -R static/images/* public/css/images/",
+    "docker-backup-content": "docker-compose exec apostrophe ./scripts/docker-backup-content",
+    "docker-restore-content": "docker-compose exec apostrophe ./scripts/docker-restore-content"
+  },
+  "engines": {
+    "node": ">=16"
+  },
   "repository": {
     "type": "git",
     "url": ""
@@ -38,6 +41,7 @@
     "facebook-nodejs-business-sdk": "^12.0.1",
     "html-to-text": "^8.0.0",
     "lodash": "^4.17.21",
+    "mongodb": "^6.0.0",
     "nodemon": "^2.0.12",
     "postcss": "^8.4.12",
     "postcss-cli": "^8.3.1",
