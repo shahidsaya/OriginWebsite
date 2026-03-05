@@ -37,7 +37,7 @@ module.exports = require("apostrophe")({
     },
 
     "apostrophe-express": {
-      port: 3000,
+      port: process.env.PORT || 3000,
     },
 
     "apostrophe-assets": {},
@@ -50,7 +50,7 @@ module.exports = require("apostrophe")({
 
     "apostrophe-search": {},
     "apostrophe-attachments": {
-      uploadfs: {
+      uploadfs: process.env.APOS_S3_BUCKET ? {
         backend: "s3",
         secret: process.env.APOS_S3_SECRET,
         key: process.env.APOS_S3_KEY,
@@ -61,6 +61,8 @@ module.exports = require("apostrophe")({
           enabled: !!process.env.APOS_CDN_URL,
           url: process.env.APOS_CDN_URL || "",
         },
+      } : {
+        backend: "local",
       },
       svgImages: true,
       imageSizes: [

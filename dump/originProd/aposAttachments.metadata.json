@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"docIds":{"$numberInt":"1"}},"name":"docIds_1"},{"v":{"$numberInt":"2"},"key":{"trashDocIds":{"$numberInt":"1"}},"name":"trashDocIds_1"}],"uuid":"7ecc2857c2a94bf7aafa1eb5588f2268","collectionName":"aposAttachments","type":"collection"}
